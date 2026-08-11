@@ -1,0 +1,25 @@
+name: YknMinions
+version: '${project.version}'
+main: com.xigua.Main
+api-version: '1.21'
+authors: [xigua]
+description: Hypixel SkyBlock-style configurable minions
+softdepend: [MMOItems, ItemsAdder, CraftEngine]
+commands:
+  minions:
+    description: YknMinions main command
+    usage: /minions <get|give|reload|level|admin>
+    aliases: [minion]
+permissions:
+  yknminions.use:
+    default: true
+  yknminions.get:
+    default: op
+  yknminions.give:
+    default: op
+  yknminions.reload:
+    default: op
+  yknminions.level:
+    default: op
+  yknminions.admin:
+    default: op

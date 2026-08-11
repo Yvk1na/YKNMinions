@@ -1,0 +1,22 @@
+# 自动合成会先识别 Bukkit 注册的同种材料压缩配方（例如 9 煤炭 -> 1 煤炭块）。
+# MMOItems 工作站配方、ItemsAdder/CraftEngine 未镜像到 Bukkit 的配方可在这里声明。
+# 下面只是格式示例，不会加载 enabled: false 的条目。
+recipes:
+  example_mmoitems:
+    enabled: false
+    input: "mmoitems:MATERIAL:SLIME_FRAGMENT"
+    input-amount: 9
+    output: "mmoitems:MATERIAL:ENCHANTED_SLIME"
+    output-amount: 1
+  example_itemsadder:
+    enabled: false
+    input: "itemsadder:my_pack:slime_fragment"
+    input-amount: 9
+    output: "itemsadder:my_pack:compressed_slime"
+    output-amount: 1
+  example_craftengine:
+    enabled: false
+    input: "craftengine:my_pack:slime_fragment"
+    input-amount: 9
+    output: "craftengine:my_pack:compressed_slime"
+    output-amount: 1

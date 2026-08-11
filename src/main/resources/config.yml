@@ -1,0 +1,52 @@
+# YknMinions 主配置。修改后使用 /minions reload。
+# 支持使用 & 颜色代码；可留空为 ""。
+prefix: "&6[YknMinions] &r"
+max-level: 11
+# GUI 最多显示 15 格；1 级初始开放 5 格，每升一级再开放 1 格。
+storage-slots: 15
+initial-storage-slots: 5
+storage-slots-per-level: 1
+tick-period: 2
+save-interval-seconds: 60
+
+diamond-spread:
+  chance: 0.10
+  amount: "1~5"
+emerald-spread:
+  chance: 0.10
+  amount: "1~5"
+iron-spread:
+  chance: 0.10
+  amount: "1~5"
+gold-spread:
+  chance: 0.10
+  amount: "1~5"
+lapis-spread:
+  chance: 0.10
+  amount: "1~5"
+
+# efficiency 使用小数表示效率提升：0.10 表示提升 10%，实际工作速度为 1 + efficiency。
+# burn-time-seconds 是每件燃料的燃烧时间（秒）；无尽能源不会耗尽，也不会被消耗。
+# 煤炭、木炭、煤炭块、木炭块和普通岩浆桶均不能再作为燃料。
+fuels:
+  infinite_energy:
+    efficiency: 0.00
+  small_fuel:
+    efficiency: 0.10
+    burn-time-seconds: 3600
+  medium_fuel:
+    efficiency: 0.25
+    burn-time-seconds: 10800
+  super_fuel:
+    efficiency: 0.50
+    burn-time-seconds: 43200
+
+messages:
+  no-permission: "§c你没有权限执行此操作。"
+  player-only: "§c该命令只能由玩家执行。"
+  invalid-item: "§c这个物品不能放入该栏位。"
+  storage-full: "§c小人的仓库已满。"
+  collected: "§a已收取小人仓库中的资源。"
+  upgraded: "§a小人已升级到等级 %level%。"
+  not-enough-materials: "§c升级材料不足。"
+  invalid-level: "§c请输入当前等级以上、最高 11 的有效等级。"

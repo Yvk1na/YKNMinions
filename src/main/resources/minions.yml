@@ -1,0 +1,1131 @@
+# 物品写法：
+#   minecraft:slime_ball
+#   mmoitems:MATERIAL:ENCHANTED_SLIME
+#   itemsadder:namespace:item_id
+#   craftengine:namespace:item_id
+types:
+  slime:
+    display-name: "§aSlime Minion"
+    drop: "minecraft:slime_ball"
+    drop-amount: "1~2"
+    work-sound: "ENTITY_SLIME_SQUISH"
+    slime-settings:
+      # 数值是权重；不必正好等于 100。键为 Minecraft 史莱姆大小（1=小、2=中、4=大）。
+      size-chances:
+        1: 50.0
+        2: 35.0
+        4: 15.0
+      # 每击杀一个史莱姆获得的资源数量，支持固定数字或随机范围，例如 "1~5"。
+      drop-per-kill: "1~5"
+      # 小人转向目标后等待多少 tick 再攻击，20 tick = 1 秒。
+      turn-delay-ticks: 10
+    model:
+      helmet: "minecraft:slime_block"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:iron_sword"
+      leather-color: "80,200,90"
+    levels:
+      1:
+        work-interval-seconds: 12.0
+        upgrade-materials: []
+      2:
+        work-interval-seconds: 11.5
+        upgrade-materials:
+          - { item: "minecraft:slime_ball", amount: 80 }
+      3:
+        work-interval-seconds: 11.0
+        upgrade-materials:
+          - { item: "minecraft:slime_ball", amount: 160 }
+      4:
+        work-interval-seconds: 10.5
+        upgrade-materials:
+          - { item: "minecraft:slime_ball", amount: 320 }
+      5:
+        work-interval-seconds: 10.0
+        upgrade-materials:
+          - { item: "minecraft:slime_ball", amount: 512 }
+      6:
+        work-interval-seconds: 9.5
+        upgrade-materials:
+          - { item: "minecraft:slime_block", amount: 128 }
+      7:
+        work-interval-seconds: 9.0
+        upgrade-materials:
+          - { item: "minecraft:slime_block", amount: 256 }
+      8:
+        work-interval-seconds: 8.5
+        upgrade-materials:
+          - { item: "minecraft:slime_block", amount: 512 }
+      9:
+        work-interval-seconds: 8.0
+        upgrade-materials:
+          - { item: "minecraft:slime_block", amount: 1024 }
+      10:
+        work-interval-seconds: 7.5
+        upgrade-materials:
+          - { item: "minecraft:slime_block", amount: 2048 }
+      11:
+        work-interval-seconds: 7.0
+        upgrade-materials:
+          - { item: "minecraft:slime_block", amount: 4096 }
+
+  zombie:
+    display-name: "§2Zombie Minion"
+    drop: "minecraft:rotten_flesh"
+    drop-amount: "1~2"
+    work-sound: "ENTITY_ZOMBIE_HURT"
+    mob-settings:
+      entity: "ZOMBIE"
+      # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
+      drop-per-kill: "1~5"
+      turn-delay-ticks: 10
+    model:
+      helmet: "minecraft:zombie_head"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:iron_sword"
+      leather-color: "65,130,70"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:rotten_flesh", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:rotten_flesh", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:rotten_flesh", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:rotten_flesh", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:rotten_flesh", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:rotten_flesh", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:rotten_flesh", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:rotten_flesh", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:rotten_flesh", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:rotten_flesh", amount: 32768 }] }
+  spider:
+    display-name: "§8Spider Minion"
+    drop: "minecraft:string"
+    drop-amount: "1~2"
+    work-sound: "ENTITY_SPIDER_HURT"
+    mob-settings:
+      entity: "SPIDER"
+      # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
+      drop-per-kill: "1~5"
+      turn-delay-ticks: 10
+    model:
+      helmet: "minecraft:black_wool"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:iron_sword"
+      leather-color: "35,35,35"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:string", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:string", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:string", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:string", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:string", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:string", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:string", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:string", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:string", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:string", amount: 32768 }] }
+  skeleton:
+    display-name: "§fSkeleton Minion"
+    drop: "minecraft:bone"
+    drop-amount: "1~2"
+    work-sound: "ENTITY_SKELETON_HURT"
+    mob-settings:
+      entity: "SKELETON"
+      # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
+      drop-per-kill: "1~5"
+      turn-delay-ticks: 10
+    model:
+      helmet: "minecraft:skeleton_skull"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:bow"
+      leather-color: "210,210,210"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:bone", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:bone", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:bone", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:bone", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:bone", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:bone", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:bone", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:bone", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:bone", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:bone", amount: 32768 }] }
+  blaze:
+    display-name: "§6Blaze Minion"
+    drop: "minecraft:blaze_rod"
+    drop-amount: "1~2"
+    work-sound: "ENTITY_BLAZE_HURT"
+    mob-settings:
+      entity: "BLAZE"
+      # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
+      drop-per-kill: "1~5"
+      turn-delay-ticks: 10
+    model:
+      helmet: "minecraft:magma_block"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:blaze_rod"
+      leather-color: "240,145,35"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:blaze_rod", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:blaze_rod", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:blaze_rod", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:blaze_rod", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:blaze_rod", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:blaze_rod", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:blaze_rod", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:blaze_rod", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:blaze_rod", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:blaze_rod", amount: 32768 }] }
+  cave_spider:
+    display-name: "§3Cave Spider Minion"
+    drop: "minecraft:spider_eye"
+    drop-amount: "1~2"
+    work-sound: "ENTITY_SPIDER_HURT"
+    mob-settings:
+      entity: "CAVE_SPIDER"
+      # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
+      drop-per-kill: "1~5"
+      turn-delay-ticks: 10
+    model:
+      helmet: "minecraft:cyan_wool"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:iron_sword"
+      leather-color: "25,95,105"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:spider_eye", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:spider_eye", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:spider_eye", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:spider_eye", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:spider_eye", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:spider_eye", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:spider_eye", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:spider_eye", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:spider_eye", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:spider_eye", amount: 32768 }] }
+  chicken:
+    display-name: "§fChicken Minion"
+    drop: "minecraft:chicken"
+    drop-amount: "1~2"
+    work-sound: "ENTITY_CHICKEN_HURT"
+    mob-settings:
+      entity: "CHICKEN"
+      # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
+      drop-per-kill: "1~5"
+      turn-delay-ticks: 10
+    model:
+      helmet: "minecraft:white_wool"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:wooden_sword"
+      leather-color: "235,235,225"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:chicken", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:chicken", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:chicken", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:chicken", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:chicken", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:chicken", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:chicken", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:chicken", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:chicken", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:chicken", amount: 32768 }] }
+  cow:
+    display-name: "§6Cow Minion"
+    drop: "minecraft:beef"
+    drop-amount: "1~2"
+    work-sound: "ENTITY_COW_HURT"
+    mob-settings:
+      entity: "COW"
+      # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
+      drop-per-kill: "1~5"
+      turn-delay-ticks: 10
+    model:
+      helmet: "minecraft:brown_wool"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:wooden_sword"
+      leather-color: "105,70,45"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:beef", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:beef", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:beef", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:beef", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:beef", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:beef", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:beef", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:beef", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:beef", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:beef", amount: 32768 }] }
+  creeper:
+    display-name: "§aCreeper Minion"
+    drop: "minecraft:gunpowder"
+    drop-amount: "1~2"
+    work-sound: "ENTITY_CREEPER_HURT"
+    mob-settings:
+      entity: "CREEPER"
+      # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
+      drop-per-kill: "1~5"
+      turn-delay-ticks: 10
+    model:
+      helmet: "minecraft:creeper_head"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:iron_sword"
+      leather-color: "70,175,75"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:gunpowder", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:gunpowder", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:gunpowder", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:gunpowder", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:gunpowder", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:gunpowder", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:gunpowder", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:gunpowder", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:gunpowder", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:gunpowder", amount: 32768 }] }
+  pig:
+    display-name: "§dPig Minion"
+    drop: "minecraft:porkchop"
+    drop-amount: "1~2"
+    work-sound: "ENTITY_PIG_HURT"
+    mob-settings:
+      entity: "PIG"
+      # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
+      drop-per-kill: "1~5"
+      turn-delay-ticks: 10
+    model:
+      helmet: "minecraft:pink_wool"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:wooden_sword"
+      leather-color: "235,150,165"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:porkchop", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:porkchop", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:porkchop", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:porkchop", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:porkchop", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:porkchop", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:porkchop", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:porkchop", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:porkchop", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:porkchop", amount: 32768 }] }
+  rabbit:
+    display-name: "§fRabbit Minion"
+    drop: "minecraft:rabbit"
+    drop-amount: "1~2"
+    work-sound: "ENTITY_RABBIT_HURT"
+    mob-settings:
+      entity: "RABBIT"
+      # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
+      drop-per-kill: "1~5"
+      turn-delay-ticks: 10
+    model:
+      helmet: "minecraft:white_wool"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:wooden_sword"
+      leather-color: "220,210,190"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:rabbit", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:rabbit", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:rabbit", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:rabbit", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:rabbit", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:rabbit", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:rabbit", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:rabbit", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:rabbit", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:rabbit", amount: 32768 }] }
+  sheep:
+    display-name: "§fSheep Minion"
+    drop: "minecraft:white_wool"
+    drop-amount: "1~2"
+    work-sound: "ENTITY_SHEEP_HURT"
+    mob-settings:
+      entity: "SHEEP"
+      # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
+      drop-per-kill: "1~5"
+      turn-delay-ticks: 10
+    model:
+      helmet: "minecraft:white_wool"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:shears"
+      leather-color: "235,235,235"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:white_wool", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:white_wool", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:white_wool", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:white_wool", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:white_wool", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:white_wool", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:white_wool", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:white_wool", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:white_wool", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:white_wool", amount: 32768 }] }
+
+  magma_cube:
+    display-name: "§6Magma Cube Minion"
+    drop: "minecraft:magma_cream"
+    drop-amount: "1~2"
+    work-sound: "ENTITY_MAGMA_CUBE_HURT"
+    mob-settings:
+      entity: "MAGMA_CUBE"
+      drop-per-kill: "1~5"
+      turn-delay-ticks: 10
+    slime-settings:
+      # 与史莱姆小人相同：随机体型并按原版尺寸逐级分裂。
+      size-chances:
+        1: 50.0
+        2: 35.0
+        4: 15.0
+    model:
+      helmet: "minecraft:magma_block"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:iron_sword"
+      leather-color: "225,95,25"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:magma_cream", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:magma_cream", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:magma_cream", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:magma_cream", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:magma_block", amount: 128 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:magma_block", amount: 256 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:magma_block", amount: 512 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:magma_block", amount: 1024 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:magma_block", amount: 2048 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:magma_block", amount: 4096 }] }
+  enderman:
+    display-name: "§5Enderman Minion"
+    drop: "minecraft:ender_pearl"
+    drop-amount: "1~2"
+    work-sound: "ENTITY_ENDERMAN_HURT"
+    mob-settings:
+      entity: "ENDERMAN"
+      drop-per-kill: "1~5"
+      turn-delay-ticks: 10
+    model:
+      helmet: "minecraft:black_wool"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:iron_sword"
+      leather-color: "45,20,55"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:ender_pearl", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:ender_pearl", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:ender_pearl", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:ender_pearl", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:ender_pearl", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:ender_pearl", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:ender_pearl", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:ender_pearl", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:ender_pearl", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:ender_pearl", amount: 32768 }] }
+  coal:
+    display-name: "§8Coal Minion"
+    drop: "minecraft:coal"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_STONE_BREAK"
+    mining-settings:
+      # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
+      block: "minecraft:coal_ore"
+    model:
+      helmet: "minecraft:coal_ore"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:stone_pickaxe"
+      leather-color: "45,45,45"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:coal", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:coal", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:coal", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:coal", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:coal", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:coal", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:coal", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:coal", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:coal", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:coal", amount: 32768 }] }
+  cobblestone:
+    display-name: "§7Cobblestone Minion"
+    drop: "minecraft:cobblestone"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_STONE_BREAK"
+    mining-settings:
+      # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
+      block: "minecraft:cobblestone"
+    model:
+      helmet: "minecraft:cobblestone"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:stone_pickaxe"
+      leather-color: "120,120,120"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:cobblestone", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:cobblestone", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:cobblestone", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:cobblestone", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:cobblestone", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:cobblestone", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:cobblestone", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:cobblestone", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:cobblestone", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:cobblestone", amount: 32768 }] }
+  diamond:
+    display-name: "§bDiamond Minion"
+    drop: "minecraft:diamond"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_STONE_BREAK"
+    mining-settings:
+      # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
+      block: "minecraft:diamond_ore"
+    model:
+      helmet: "minecraft:diamond_ore"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:iron_pickaxe"
+      leather-color: "70,210,220"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:diamond", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:diamond", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:diamond", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:diamond", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:diamond", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:diamond", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:diamond", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:diamond", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:diamond", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:diamond", amount: 32768 }] }
+  emerald:
+    display-name: "§aEmerald Minion"
+    drop: "minecraft:emerald"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_STONE_BREAK"
+    mining-settings:
+      # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
+      block: "minecraft:emerald_ore"
+    model:
+      helmet: "minecraft:emerald_ore"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:iron_pickaxe"
+      leather-color: "45,190,90"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:emerald", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:emerald", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:emerald", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:emerald", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:emerald", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:emerald", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:emerald", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:emerald", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:emerald", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:emerald", amount: 32768 }] }
+  end_stone:
+    display-name: "§eEnd Stone Minion"
+    drop: "minecraft:end_stone"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_STONE_BREAK"
+    mining-settings:
+      # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
+      block: "minecraft:end_stone"
+    model:
+      helmet: "minecraft:end_stone"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:stone_pickaxe"
+      leather-color: "220,220,145"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:end_stone", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:end_stone", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:end_stone", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:end_stone", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:end_stone", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:end_stone", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:end_stone", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:end_stone", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:end_stone", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:end_stone", amount: 32768 }] }
+  gold:
+    display-name: "§6Gold Minion"
+    drop: "minecraft:gold_ingot"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_STONE_BREAK"
+    mining-settings:
+      # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
+      block: "minecraft:gold_ore"
+    model:
+      helmet: "minecraft:gold_ore"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:iron_pickaxe"
+      leather-color: "240,190,45"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:gold_ingot", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:gold_ingot", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:gold_ingot", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:gold_ingot", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:gold_ingot", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:gold_ingot", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:gold_ingot", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:gold_ingot", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:gold_ingot", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:gold_ingot", amount: 32768 }] }
+  iron:
+    display-name: "§fIron Minion"
+    drop: "minecraft:iron_ingot"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_STONE_BREAK"
+    mining-settings:
+      # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
+      block: "minecraft:iron_ore"
+    model:
+      helmet: "minecraft:iron_ore"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:stone_pickaxe"
+      leather-color: "205,190,175"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:iron_ingot", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:iron_ingot", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:iron_ingot", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:iron_ingot", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:iron_ingot", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:iron_ingot", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:iron_ingot", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:iron_ingot", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:iron_ingot", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:iron_ingot", amount: 32768 }] }
+  oak_log:
+    display-name: "§6Oak Log Minion"
+    drop: "minecraft:oak_log"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_WOOD_BREAK"
+    mining-settings:
+      # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
+      block: "minecraft:oak_log"
+    model:
+      helmet: "minecraft:oak_log"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:stone_axe"
+      leather-color: "150,105,55"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:oak_log", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:oak_log", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:oak_log", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:oak_log", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:oak_log", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:oak_log", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:oak_log", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:oak_log", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:oak_log", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:oak_log", amount: 32768 }] }
+  obsidian:
+    display-name: "§5Obsidian Minion"
+    drop: "minecraft:obsidian"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_STONE_BREAK"
+    mining-settings:
+      # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
+      block: "minecraft:obsidian"
+    model:
+      helmet: "minecraft:obsidian"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:diamond_pickaxe"
+      leather-color: "45,25,65"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:obsidian", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:obsidian", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:obsidian", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:obsidian", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:obsidian", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:obsidian", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:obsidian", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:obsidian", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:obsidian", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:obsidian", amount: 32768 }] }
+  quartz:
+    display-name: "§fQuartz Minion"
+    drop: "minecraft:quartz"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_NETHER_ORE_BREAK"
+    mining-settings:
+      # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
+      block: "minecraft:nether_quartz_ore"
+    model:
+      helmet: "minecraft:nether_quartz_ore"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:iron_pickaxe"
+      leather-color: "225,215,200"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:quartz", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:quartz", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:quartz", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:quartz", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:quartz", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:quartz", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:quartz", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:quartz", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:quartz", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:quartz", amount: 32768 }] }
+  redstone:
+    display-name: "§cRedstone Minion"
+    drop: "minecraft:redstone"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_STONE_BREAK"
+    mining-settings:
+      # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
+      block: "minecraft:redstone_ore"
+    model:
+      helmet: "minecraft:redstone_ore"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:iron_pickaxe"
+      leather-color: "185,35,35"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:redstone", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:redstone", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:redstone", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:redstone", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:redstone", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:redstone", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:redstone", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:redstone", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:redstone", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:redstone", amount: 32768 }] }
+  sand:
+    display-name: "§eSand Minion"
+    drop: "minecraft:sand"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_SAND_BREAK"
+    mining-settings:
+      # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
+      block: "minecraft:sand"
+    model:
+      helmet: "minecraft:sand"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:stone_shovel"
+      leather-color: "220,205,145"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:sand", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:sand", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:sand", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:sand", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:sand", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:sand", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:sand", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:sand", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:sand", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:sand", amount: 32768 }] }
+  snow:
+    display-name: "§fSnow Minion"
+    drop: "minecraft:snowball"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_SNOW_BREAK"
+    mining-settings:
+      # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
+      block: "minecraft:snow_block"
+    model:
+      helmet: "minecraft:snow_block"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:stone_shovel"
+      leather-color: "235,245,250"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:snowball", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:snowball", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:snowball", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:snowball", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:snowball", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:snowball", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:snowball", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:snowball", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:snowball", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:snowball", amount: 32768 }] }
+
+  clay:
+    display-name: "§7Clay Minion"
+    drop: "minecraft:clay_ball"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_GRAVEL_BREAK"
+    mining-settings:
+      # 5×5 工作区，中心格留给小人。
+      block: "minecraft:clay"
+    model:
+      helmet: "minecraft:clay"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:stone_shovel"
+      leather-color: "150,160,175"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:clay_ball", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:clay_ball", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:clay_ball", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:clay_ball", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:clay_ball", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:clay_ball", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:clay_ball", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:clay_ball", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:clay_ball", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:clay_ball", amount: 32768 }] }
+  lapis:
+    display-name: "§9Lapis Minion"
+    drop: "minecraft:lapis_lazuli"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_STONE_BREAK"
+    mining-settings:
+      # 5×5 工作区，中心格留给小人。
+      block: "minecraft:lapis_ore"
+    model:
+      helmet: "minecraft:lapis_ore"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:iron_pickaxe"
+      leather-color: "45,75,175"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:lapis_lazuli", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:lapis_lazuli", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:lapis_lazuli", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:lapis_lazuli", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:lapis_lazuli", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:lapis_lazuli", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:lapis_lazuli", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:lapis_lazuli", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:lapis_lazuli", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:lapis_lazuli", amount: 32768 }] }
+  cactus:
+    display-name: "§2Cactus Minion"
+    drop: "minecraft:cactus"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_WOOD_BREAK"
+    farming-settings:
+      # 底层与种植排列由作物类型自动按原版规则准备。
+      crop: "CACTUS"
+    model:
+      helmet: "minecraft:cactus"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:iron_axe"
+      leather-color: "45,145,55"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:cactus", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:cactus", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:cactus", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:cactus", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:cactus", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:cactus", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:cactus", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:cactus", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:cactus", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:cactus", amount: 32768 }] }
+  carrot:
+    display-name: "§6Carrot Minion"
+    drop: "minecraft:carrot"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_GRASS_BREAK"
+    farming-settings:
+      # 底层与种植排列由作物类型自动按原版规则准备。
+      crop: "CARROT"
+    model:
+      helmet: "minecraft:carrot"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:wooden_hoe"
+      leather-color: "225,125,35"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:carrot", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:carrot", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:carrot", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:carrot", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:carrot", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:carrot", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:carrot", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:carrot", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:carrot", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:carrot", amount: 32768 }] }
+  red_mushroom:
+    display-name: "§cRed Mushroom Minion"
+    drop: "minecraft:red_mushroom"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_GRASS_BREAK"
+    farming-settings:
+      # 底层与种植排列由作物类型自动按原版规则准备。
+      crop: "RED_MUSHROOM"
+    model:
+      helmet: "minecraft:red_mushroom_block"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:wooden_hoe"
+      leather-color: "185,45,40"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:red_mushroom", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:red_mushroom", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:red_mushroom", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:red_mushroom", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:red_mushroom", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:red_mushroom", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:red_mushroom", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:red_mushroom", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:red_mushroom", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:red_mushroom", amount: 32768 }] }
+  brown_mushroom:
+    display-name: "§7Brown Mushroom Minion"
+    drop: "minecraft:brown_mushroom"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_GRASS_BREAK"
+    farming-settings:
+      # 底层与种植排列由作物类型自动按原版规则准备。
+      crop: "BROWN_MUSHROOM"
+    model:
+      helmet: "minecraft:brown_mushroom_block"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:wooden_hoe"
+      leather-color: "145,105,75"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:brown_mushroom", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:brown_mushroom", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:brown_mushroom", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:brown_mushroom", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:brown_mushroom", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:brown_mushroom", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:brown_mushroom", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:brown_mushroom", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:brown_mushroom", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:brown_mushroom", amount: 32768 }] }
+  nether_wart:
+    display-name: "§4Nether Wart Minion"
+    drop: "minecraft:nether_wart"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_GRASS_BREAK"
+    farming-settings:
+      # 底层与种植排列由作物类型自动按原版规则准备。
+      crop: "NETHER_WART"
+    model:
+      helmet: "minecraft:red_nether_bricks"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:wooden_hoe"
+      leather-color: "125,25,35"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:nether_wart", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:nether_wart", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:nether_wart", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:nether_wart", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:nether_wart", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:nether_wart", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:nether_wart", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:nether_wart", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:nether_wart", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:nether_wart", amount: 32768 }] }
+  potato:
+    display-name: "§ePotato Minion"
+    drop: "minecraft:potato"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_GRASS_BREAK"
+    farming-settings:
+      # 底层与种植排列由作物类型自动按原版规则准备。
+      crop: "POTATO"
+    model:
+      helmet: "minecraft:potato"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:wooden_hoe"
+      leather-color: "190,155,80"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:potato", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:potato", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:potato", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:potato", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:potato", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:potato", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:potato", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:potato", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:potato", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:potato", amount: 32768 }] }
+  sugar_cane:
+    display-name: "§aSugar Cane Minion"
+    drop: "minecraft:sugar_cane"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_GRASS_BREAK"
+    farming-settings:
+      # 底层与种植排列由作物类型自动按原版规则准备。
+      crop: "SUGAR_CANE"
+    model:
+      helmet: "minecraft:lime_wool"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:wooden_hoe"
+      leather-color: "95,185,75"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:sugar_cane", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:sugar_cane", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:sugar_cane", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:sugar_cane", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:sugar_cane", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:sugar_cane", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:sugar_cane", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:sugar_cane", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:sugar_cane", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:sugar_cane", amount: 32768 }] }
+  wheat:
+    display-name: "§eWheat Minion"
+    drop: "minecraft:wheat"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_GRASS_BREAK"
+    farming-settings:
+      # 底层与种植排列由作物类型自动按原版规则准备。
+      crop: "WHEAT"
+    model:
+      helmet: "minecraft:hay_block"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:wooden_hoe"
+      leather-color: "210,175,65"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:wheat", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:wheat", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:wheat", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:wheat", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:wheat", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:wheat", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:wheat", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:wheat", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:wheat", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:wheat", amount: 32768 }] }
+  melon:
+    display-name: "§aMelon Minion"
+    drop: "minecraft:melon_slice"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_WOOD_BREAK"
+    farming-settings:
+      # 底层与种植排列由作物类型自动按原版规则准备。
+      crop: "MELON"
+    model:
+      helmet: "minecraft:melon"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:stone_axe"
+      leather-color: "80,175,65"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:melon_slice", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:melon_slice", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:melon_slice", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:melon_slice", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:melon_slice", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:melon_slice", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:melon_slice", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:melon_slice", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:melon_slice", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:melon_slice", amount: 32768 }] }
+  pumpkin:
+    display-name: "§6Pumpkin Minion"
+    drop: "minecraft:pumpkin"
+    drop-amount: "1~2"
+    work-sound: "BLOCK_WOOD_BREAK"
+    farming-settings:
+      # 底层与种植排列由作物类型自动按原版规则准备。
+      crop: "PUMPKIN"
+    model:
+      helmet: "minecraft:pumpkin"
+      chestplate: "minecraft:leather_chestplate"
+      leggings: "minecraft:leather_leggings"
+      boots: "minecraft:leather_boots"
+      tool: "minecraft:stone_axe"
+      leather-color: "220,125,30"
+    levels:
+      1: { work-interval-seconds: 12.0, upgrade-materials: [] }
+      2: { work-interval-seconds: 11.5, upgrade-materials: [{ item: "minecraft:pumpkin", amount: 80 }] }
+      3: { work-interval-seconds: 11.0, upgrade-materials: [{ item: "minecraft:pumpkin", amount: 160 }] }
+      4: { work-interval-seconds: 10.5, upgrade-materials: [{ item: "minecraft:pumpkin", amount: 320 }] }
+      5: { work-interval-seconds: 10.0, upgrade-materials: [{ item: "minecraft:pumpkin", amount: 512 }] }
+      6: { work-interval-seconds: 9.5, upgrade-materials: [{ item: "minecraft:pumpkin", amount: 1024 }] }
+      7: { work-interval-seconds: 9.0, upgrade-materials: [{ item: "minecraft:pumpkin", amount: 2048 }] }
+      8: { work-interval-seconds: 8.5, upgrade-materials: [{ item: "minecraft:pumpkin", amount: 4096 }] }
+      9: { work-interval-seconds: 8.0, upgrade-materials: [{ item: "minecraft:pumpkin", amount: 8192 }] }
+      10: { work-interval-seconds: 7.5, upgrade-materials: [{ item: "minecraft:pumpkin", amount: 16384 }] }
+      11: { work-interval-seconds: 7.0, upgrade-materials: [{ item: "minecraft:pumpkin", amount: 32768 }] }
