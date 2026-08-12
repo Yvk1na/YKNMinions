@@ -21,6 +21,9 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.AtomicMoveNotSupportedException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -31,7 +34,12 @@ public final class MinionManager {
     private final SpecialItemService specialItems;
     private final AutoCraftService autoCraft;
     private final Map<UUID, MinionInstance> minions = new LinkedHashMap<>();
+    private final Map<String, ConfigurationSection> deferredMinions = new LinkedHashMap<>();
     private final File dataFile;
+    private final File backupDataFile;
+    private final File temporaryDataFile;
+    private boolean dataWritesBlocked;
+    private boolean recoveredFromBackup;
     private BukkitTask tickTask;
     private BukkitTask saveTask;
 
@@ -43,40 +51,108 @@ public final class MinionManager {
         this.specialItems = specialItems;
         this.autoCraft = autoCraft;
         this.dataFile = new File(plugin.getDataFolder(), "data.yml");
+        this.backupDataFile = new File(plugin.getDataFolder(), "data.yml.bak");
+        this.temporaryDataFile = new File(plugin.getDataFolder(), "data.yml.tmp");
     }
 
     public void load() {
-        cleanupLoadedEntities();
-        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(dataFile);
+        YamlConfiguration yaml = loadDataConfiguration();
+        if (yaml == null) return;
         ConfigurationSection root = yaml.getConfigurationSection("minions");
         if (root == null) return;
+        cleanupLoadedEntities();
         for (String key : root.getKeys(false)) {
-            try {
-                ConfigurationSection section = Objects.requireNonNull(root.getConfigurationSection(key));
-                World world = Bukkit.getWorld(Objects.requireNonNull(section.getString("world")));
-                if (world == null) {
-                    plugin.getLogger().warning("跳过世界未加载的小人 " + key);
-                    continue;
-                }
-                Location location = new Location(world, section.getDouble("x"), section.getDouble("y"),
-                        section.getDouble("z"), (float) section.getDouble("yaw"), 0f);
-                List<ItemStack> storage = section.getList("storage", List.of()).stream()
-                        .filter(ItemStack.class::isInstance).map(ItemStack.class::cast).toList();
-                Map<Integer, Material> originalFarmGround = loadOriginalFarmGround(section);
-                MinionInstance minion = new MinionInstance(plugin, config, resolver, specialItems, autoCraft,
-                        UUID.fromString(key), UUID.fromString(Objects.requireNonNull(section.getString("owner"))),
-                        section.getString("type", "slime"), section.getInt("level", 1), location,
-                        section.getIntegerList("generated-blocks"), section.getIntegerList("farming-plants"),
-                        section.getIntegerList("farming-produce"), originalFarmGround, storage,
-                        section.getItemStack("fuel"), section.getItemStack("upgrade-one"), section.getItemStack("upgrade-two"),
-                        section.getLong("fuel-burn-until", 0L), section.getInt("fuel-actions-remaining", 0),
-                        section.getString("active-fuel"), section.getLong("next-work-at", 0));
-                minions.put(minion.id(), minion);
-                minion.spawn();
-            } catch (RuntimeException exception) {
-                plugin.getLogger().log(Level.SEVERE, "无法加载小人 " + key, exception);
+            ConfigurationSection section = root.getConfigurationSection(key);
+            if (section == null) continue;
+            if (!loadMinionRecord(key, section)) deferredMinions.put(key, section);
+        }
+        if (!deferredMinions.isEmpty()) {
+            plugin.getLogger().warning("有 " + deferredMinions.size()
+                    + " 个小人正在等待世界或配置就绪；记录会原样保留，不会被 data.yml 保存覆盖。");
+        }
+        Bukkit.getScheduler().runTask(plugin, () -> retryDeferredMinions(null));
+    }
+
+    private YamlConfiguration loadDataConfiguration() {
+        if (!dataFile.exists()) return new YamlConfiguration();
+        YamlConfiguration primary = YamlConfiguration.loadConfiguration(dataFile);
+        if (primary.isConfigurationSection("minions")) return primary;
+
+        if (backupDataFile.exists()) {
+            YamlConfiguration backup = YamlConfiguration.loadConfiguration(backupDataFile);
+            if (backup.isConfigurationSection("minions")) {
+                recoveredFromBackup = true;
+                plugin.getLogger().severe("data.yml 无法读取，已从 data.yml.bak 恢复小人记录。");
+                return backup;
             }
         }
+        dataWritesBlocked = true;
+        plugin.getLogger().severe("data.yml 存在但缺少有效的 minions 节点。为防止清空小人数据，本次运行已禁止覆盖该文件。");
+        return null;
+    }
+
+    private boolean loadMinionRecord(String key, ConfigurationSection section) {
+        MinionInstance minion = null;
+        try {
+            UUID minionId = UUID.fromString(key);
+            if (minions.containsKey(minionId)) return true;
+            String worldName = Objects.requireNonNull(section.getString("world"), "world");
+            World world = Bukkit.getWorld(worldName);
+            if (world == null) return false;
+            String typeId = section.getString("type", "slime");
+            if (config.minionType(typeId).isEmpty()) {
+                throw new IllegalArgumentException("未知的小人类型: " + typeId);
+            }
+            Location location = new Location(world, section.getDouble("x"), section.getDouble("y"),
+                    section.getDouble("z"), (float) section.getDouble("yaw"), 0f);
+            List<ItemStack> storage = section.getList("storage", List.of()).stream()
+                    .filter(ItemStack.class::isInstance).map(ItemStack.class::cast).toList();
+            Map<Integer, Material> originalFarmGround = loadOriginalFarmGround(section);
+            minion = new MinionInstance(plugin, config, resolver, specialItems, autoCraft,
+                    minionId, UUID.fromString(Objects.requireNonNull(section.getString("owner"))),
+                    typeId, section.getInt("level", 1), location,
+                    section.getIntegerList("generated-blocks"), section.getIntegerList("farming-plants"),
+                    section.getIntegerList("farming-produce"), originalFarmGround, storage,
+                    section.getItemStack("fuel"), section.getItemStack("upgrade-one"), section.getItemStack("upgrade-two"),
+                    section.getLong("fuel-burn-until", 0L), section.getInt("fuel-actions-remaining", 0),
+                    section.getString("active-fuel"), section.getLong("next-work-at", 0));
+            minion.spawn();
+            minions.put(minion.id(), minion);
+            return true;
+        } catch (RuntimeException exception) {
+            if (minion != null) minion.removeEntity();
+            plugin.getLogger().log(Level.SEVERE,
+                    "暂时无法加载小人 " + key + "；原始记录已保留，稍后会再次尝试。", exception);
+            return false;
+        }
+    }
+
+    private void retryDeferredMinions(World onlyWorld) {
+        if (deferredMinions.isEmpty()) return;
+        int loaded = 0;
+        Iterator<Map.Entry<String, ConfigurationSection>> iterator = deferredMinions.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, ConfigurationSection> entry = iterator.next();
+            String worldName = entry.getValue().getString("world");
+            if (onlyWorld != null && !onlyWorld.getName().equals(worldName)) continue;
+            if (Bukkit.getWorld(worldName == null ? "" : worldName) == null) continue;
+            if (!loadMinionRecord(entry.getKey(), entry.getValue())) continue;
+            iterator.remove();
+            loaded++;
+        }
+        if (loaded > 0) {
+            plugin.getLogger().info("已恢复 " + loaded + " 个延迟加载的小人。仍有 "
+                    + deferredMinions.size() + " 个等待恢复。");
+            save();
+        }
+    }
+
+    public void onWorldLoad(World world) {
+        boolean hasDeferredInWorld = deferredMinions.values().stream()
+                .anyMatch(section -> world.getName().equals(section.getString("world")));
+        if (!hasDeferredInWorld) return;
+        cleanupLoadedEntities(world);
+        retryDeferredMinions(world);
     }
 
     public void startTasks() {
@@ -233,23 +309,49 @@ public final class MinionManager {
     public void refreshModels() { minions.values().forEach(MinionInstance::refreshConfiguration); }
 
     public void save() {
+        if (dataWritesBlocked) return;
         YamlConfiguration yaml = new YamlConfiguration();
         ConfigurationSection root = yaml.createSection("minions");
+        deferredMinions.forEach((id, source) -> copySection(source, root.createSection(id)));
         minions.forEach((id, minion) -> minion.save(root.createSection(id.toString())));
         try {
-            yaml.save(dataFile);
+            yaml.save(temporaryDataFile);
+            if (dataFile.exists() && !recoveredFromBackup) {
+                Files.copy(dataFile.toPath(), backupDataFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+            try {
+                Files.move(temporaryDataFile.toPath(), dataFile.toPath(),
+                        StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+            } catch (AtomicMoveNotSupportedException ignored) {
+                Files.move(temporaryDataFile.toPath(), dataFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+            recoveredFromBackup = false;
         } catch (IOException exception) {
+            try { Files.deleteIfExists(temporaryDataFile.toPath()); }
+            catch (IOException ignored) { }
             plugin.getLogger().log(Level.SEVERE, "保存小人数据失败", exception);
         }
     }
 
+    static void copySection(ConfigurationSection source, ConfigurationSection target) {
+        source.getValues(true).forEach((path, value) -> {
+            if (!(value instanceof ConfigurationSection)) target.set(path, value);
+        });
+    }
+
     private void cleanupLoadedEntities() {
-        for (World world : Bukkit.getWorlds()) {
-            for (var target : world.getEntities()) {
-                if (target.getPersistentDataContainer().has(plugin.key("minion_target"), PersistentDataType.STRING)) target.remove();
+        Bukkit.getWorlds().forEach(this::cleanupLoadedEntities);
+    }
+
+    private void cleanupLoadedEntities(World world) {
+        for (var target : world.getEntities()) {
+            if (target.getPersistentDataContainer().has(plugin.key("minion_target"), PersistentDataType.STRING)) {
+                target.remove();
             }
-            for (ArmorStand stand : world.getEntitiesByClass(ArmorStand.class)) {
-                if (stand.getPersistentDataContainer().has(plugin.key("minion_entity"), PersistentDataType.STRING)) stand.remove();
+        }
+        for (ArmorStand stand : world.getEntitiesByClass(ArmorStand.class)) {
+            if (stand.getPersistentDataContainer().has(plugin.key("minion_entity"), PersistentDataType.STRING)) {
+                stand.remove();
             }
         }
     }

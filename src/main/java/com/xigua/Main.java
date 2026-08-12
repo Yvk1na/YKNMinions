@@ -57,12 +57,14 @@ public final class Main extends JavaPlugin {
 
         minionManager.load();
         minionManager.startTasks();
+        minionGui.startRefreshTask();
         getLogger().info("YknMinions 已启用：加载了 " + pluginConfig.minionTypes().size() + " 种小人。兼容层："
                 + itemResolver.compatibilitySummary());
     }
 
     @Override
     public void onDisable() {
+        if (minionGui != null) minionGui.stopRefreshTask();
         if (signInputService != null) signInputService.closeAll();
         if (minionManager != null) minionManager.shutdown();
     }

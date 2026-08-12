@@ -23,6 +23,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
 
@@ -43,6 +44,7 @@ public final class MinionGui implements Listener {
     private final ItemResolver resolver;
     private final SpecialItemService specialItems;
     private final SignInputService signInput;
+    private BukkitTask refreshTask;
 
     public MinionGui(Main plugin, MinionManager manager, PluginConfig config, ItemResolver resolver,
                      SpecialItemService specialItems, SignInputService signInput) {
@@ -54,6 +56,29 @@ public final class MinionGui implements Listener {
         this.signInput = signInput;
     }
 
+    public void startRefreshTask() {
+        stopRefreshTask();
+        refreshTask = Bukkit.getScheduler().runTaskTimer(plugin, this::refreshOpenMainInventories, 1L, 1L);
+    }
+
+    public void stopRefreshTask() {
+        if (refreshTask != null) refreshTask.cancel();
+        refreshTask = null;
+    }
+
+    private void refreshOpenMainInventories() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            Inventory inventory = player.getOpenInventory().getTopInventory();
+            if (!(inventory.getHolder() instanceof MainHolder holder)) continue;
+            MinionInstance minion = manager.byId(holder.minionId).orElse(null);
+            if (minion == null) {
+                player.closeInventory();
+                continue;
+            }
+            renderStorage(inventory, minion);
+        }
+    }
+
     public void openMain(Player player, MinionInstance minion) {
         MainHolder holder = new MainHolder(minion.id());
         String title = minion.type().map(type -> stripColors(type.displayName())).orElse("Minion") + " " + roman(minion.level());
@@ -61,13 +86,7 @@ public final class MinionGui implements Listener {
         holder.inventory = inventory;
         ItemStack filler = named(Material.GRAY_STAINED_GLASS_PANE, Component.text(" "));
         for (int i = 0; i < inventory.getSize(); i++) inventory.setItem(i, filler);
-        int unlockedStorageSlots = Math.min(minion.storage().unlockedSlots(), STORAGE_SLOTS.length);
-        ItemStack lockedStorage = lore(Material.WHITE_STAINED_GLASS_PANE, "未解锁的背包格", NamedTextColor.WHITE,
-                List.of("小人每升一级解锁一个格子。"));
-        for (int i = 0; i < STORAGE_SLOTS.length; i++) {
-            if (i < unlockedStorageSlots) inventory.clear(STORAGE_SLOTS[i]);
-            else inventory.setItem(STORAGE_SLOTS[i], lockedStorage);
-        }
+        renderStorage(inventory, minion);
 
         ItemStack head = named(Material.PLAYER_HEAD, Component.text("小人等级 " + minion.level(), NamedTextColor.GREEN));
         head.setAmount(Math.max(1, minion.level()));
@@ -86,9 +105,22 @@ public final class MinionGui implements Listener {
                 "升级模块 1", "可放置资源蔓延或自动合成");
         renderInteractiveSlot(inventory, UPGRADE_TWO_SLOT, minion.upgradeTwo(), Material.ORANGE_STAINED_GLASS_PANE,
                 "升级模块 2", "可放置资源蔓延或自动合成");
-        List<ItemStack> stored = minion.storage().snapshot();
-        for (int i = 0; i < Math.min(stored.size(), unlockedStorageSlots); i++) inventory.setItem(STORAGE_SLOTS[i], stored.get(i));
         player.openInventory(inventory);
+    }
+
+    private void renderStorage(Inventory inventory, MinionInstance minion) {
+        int unlocked = Math.min(minion.storage().unlockedSlots(), STORAGE_SLOTS.length);
+        List<ItemStack> stored = minion.storage().snapshot();
+        ItemStack locked = lore(Material.WHITE_STAINED_GLASS_PANE, "未解锁的背包格", NamedTextColor.WHITE,
+                List.of("小人每升一级解锁一个格子。"));
+        for (int index = 0; index < STORAGE_SLOTS.length; index++) {
+            ItemStack desired = index >= unlocked ? locked
+                    : index < stored.size() ? stored.get(index) : null;
+            int inventorySlot = STORAGE_SLOTS[index];
+            if (!Objects.equals(inventory.getItem(inventorySlot), desired)) {
+                inventory.setItem(inventorySlot, desired);
+            }
+        }
     }
 
     public void openConfirmation(Player player, MinionInstance minion, int targetLevel) {
@@ -141,7 +173,7 @@ public final class MinionGui implements Listener {
             case FUEL_SLOT -> handleInteractiveCursor(player, minion, FUEL_SLOT);
             case UPGRADE_ONE_SLOT -> handleInteractiveCursor(player, minion, UPGRADE_ONE_SLOT);
             case UPGRADE_TWO_SLOT -> handleInteractiveCursor(player, minion, UPGRADE_TWO_SLOT);
-            case COLLECT_SLOT -> { manager.collect(player, minion); openMain(player, minion); }
+            case COLLECT_SLOT -> manager.collect(player, minion);
             case QUICK_UPGRADE_SLOT -> {
                 if (minion.level() >= config.maxLevel()) player.sendMessage(config.prefixed("§e该小人已经满级。"));
                 else { player.closeInventory(); signInput.open(player, minion); }
