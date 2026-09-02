@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Level;
 
-public final class PluginConfig {
+public final class PluginConfig implements MinionRuntimeSettings {
     private final Main plugin;
     private Map<String, MinionType> minionTypes = Map.of();
     private List<FuelType> fuels = List.of();
@@ -27,6 +27,10 @@ public final class PluginConfig {
     private int storageSlotsPerLevel;
     private long tickPeriod;
     private long saveIntervalTicks;
+    private boolean offlineProductionEnabled;
+    private long offlineSettleIntervalTicks;
+    private int offlineMaxActionsPerTick;
+    private long offlineMaxMillisPerTick;
     private List<SpreadSettings> spreads = List.of();
     private String prefix;
 
@@ -45,6 +49,13 @@ public final class PluginConfig {
                 plugin.getConfig().getInt("storage-slots-per-level", 1)));
         tickPeriod = Math.max(1L, plugin.getConfig().getLong("tick-period", 2L));
         saveIntervalTicks = Math.max(20L, plugin.getConfig().getLong("save-interval-seconds", 60L) * 20L);
+        offlineProductionEnabled = plugin.getConfig().getBoolean("offline-production.enabled", true);
+        offlineSettleIntervalTicks = Math.max(20L,
+                plugin.getConfig().getLong("offline-production.settle-interval-seconds", 60L) * 20L);
+        offlineMaxActionsPerTick = Math.max(1, Math.min(100_000,
+                plugin.getConfig().getInt("offline-production.max-actions-per-tick", 2000)));
+        offlineMaxMillisPerTick = Math.max(1L, Math.min(25L,
+                plugin.getConfig().getLong("offline-production.max-millis-per-tick", 4L)));
         spreads = loadSpreads();
         fuels = loadFuels();
         minionTypes = loadMinionTypes();
@@ -117,7 +128,10 @@ public final class PluginConfig {
                         model, readMobSettings(id, section.getConfigurationSection("mob-settings"),
                         dropAmount, slimeSettings), slimeSettings,
                         readMiningSettings(section.getConfigurationSection("mining-settings")),
-                        readFarmingSettings(section.getConfigurationSection("farming-settings")), levels));
+                        readFarmingSettings(section.getConfigurationSection("farming-settings")),
+                        readSkillSettings(id, section.getConfigurationSection("skill")),
+                        readCollectionSettings(id, section.getConfigurationSection("collection")),
+                        levels));
             } catch (RuntimeException exception) {
                 plugin.getLogger().log(Level.SEVERE, "无法加载小人类型 " + id, exception);
             }
@@ -136,7 +150,13 @@ public final class PluginConfig {
             boolean changed = false;
             for (String id : bundledTypes.getKeys(false)) {
                 String targetPath = "types." + id;
-                if (installed.isConfigurationSection(targetPath)) continue;
+                if (installed.isConfigurationSection(targetPath)) {
+                    changed |= copyMissingSection(bundled, installed,
+                            targetPath + ".skill");
+                    changed |= copyMissingSection(bundled, installed,
+                            targetPath + ".collection");
+                    continue;
+                }
                 ConfigurationSection source = bundledTypes.getConfigurationSection(id);
                 if (source == null) continue;
                 for (Map.Entry<String, Object> entry : source.getValues(true).entrySet()) {
@@ -148,11 +168,25 @@ public final class PluginConfig {
             }
             if (changed) {
                 installed.save(file);
-                plugin.getLogger().info("已向 minions.yml 补充新版本内置的小人类型。");
+                plugin.getLogger().info("已向 minions.yml 补充新版本内置的小人类型或奖励集成默认值。");
             }
         } catch (IOException exception) {
             plugin.getLogger().log(Level.SEVERE, "无法合并新版内置小人配置", exception);
         }
+    }
+
+    private static boolean copyMissingSection(YamlConfiguration source,
+                                              YamlConfiguration target,
+                                              String path) {
+        if (target.contains(path) || !source.isConfigurationSection(path)) return false;
+        ConfigurationSection section = source.getConfigurationSection(path);
+        if (section == null) return false;
+        for (Map.Entry<String, Object> entry : section.getValues(true).entrySet()) {
+            if (!(entry.getValue() instanceof ConfigurationSection)) {
+                target.set(path + "." + entry.getKey(), entry.getValue());
+            }
+        }
+        return true;
     }
 
     private ModelSettings readModel(ConfigurationSection section) {
@@ -223,6 +257,73 @@ public final class PluginConfig {
         }
     }
 
+    private SkillSettings readSkillSettings(String typeId, ConfigurationSection section) {
+        if (section == null) return null;
+        try {
+            String provider = section.getString("provider", "auraskills")
+                    .trim().toLowerCase(Locale.ROOT);
+            if (!"auraskills".equals(provider)) {
+                throw new IllegalArgumentException("不支持的 Skill provider: " + provider);
+            }
+            String skillId = section.getString("id", section.getString("skill", ""));
+            List<SkillRewardSettings> rewards = new ArrayList<>();
+            Set<String> descriptors = new HashSet<>();
+            for (Map<?, ?> entry : section.getMapList("rewards")) {
+                Object rawItem = entry.get("item");
+                if (rawItem == null) {
+                    throw new IllegalArgumentException("Skill reward 缺少 item");
+                }
+                ItemSpec item = new ItemSpec(String.valueOf(rawItem));
+                if (!descriptors.add(item.descriptor())) {
+                    throw new IllegalArgumentException(
+                            "重复的 Skill reward: " + item.descriptor());
+                }
+                Object rawXp = entry.containsKey("xp-per-base-unit")
+                        ? entry.get("xp-per-base-unit")
+                        : entry.containsKey("xp-per-item")
+                        ? entry.get("xp-per-item") : entry.get("xp");
+                if (!(rawXp instanceof Number xp)) {
+                    throw new IllegalArgumentException(
+                            "Skill reward 缺少 xp-per-base-unit: " + item.descriptor());
+                }
+                Object rawEquivalent = entry.containsKey("equivalent")
+                        ? entry.get("equivalent") : 1.0;
+                if (!(rawEquivalent instanceof Number equivalent)) {
+                    throw new IllegalArgumentException(
+                            "Skill reward equivalent 不是数字: " + item.descriptor());
+                }
+                rewards.add(new SkillRewardSettings(
+                        item, xp.doubleValue(), equivalent.doubleValue()));
+            }
+            return new SkillSettings(provider, skillId, rewards);
+        } catch (RuntimeException exception) {
+            plugin.getLogger().log(Level.WARNING,
+                    "小人 " + typeId + " 的 Skill 配置无效，已跳过技能经验接入。",
+                    exception);
+            return null;
+        }
+    }
+
+    private CollectionSettings readCollectionSettings(
+            String typeId, ConfigurationSection section) {
+        if (section == null) return null;
+        try {
+            String provider = section.getString("provider", "ecocollections")
+                    .trim().toLowerCase(Locale.ROOT);
+            if (!"ecocollections".equals(provider)) {
+                throw new IllegalArgumentException(
+                        "不支持的 Collection provider: " + provider);
+            }
+            return new CollectionSettings(provider,
+                    Objects.requireNonNull(section.getString("id"), "collection id"));
+        } catch (RuntimeException exception) {
+            plugin.getLogger().log(Level.WARNING,
+                    "小人 " + typeId + " 的 Collection 配置无效，已跳过收集进度接入。",
+                    exception);
+            return null;
+        }
+    }
+
     private Map<Integer, LevelSettings> readLevels(ConfigurationSection section) {
         Map<Integer, LevelSettings> result = new HashMap<>();
         for (String key : section.getKeys(false)) {
@@ -282,5 +383,9 @@ public final class PluginConfig {
     }
     public long tickPeriod() { return tickPeriod; }
     public long saveIntervalTicks() { return saveIntervalTicks; }
+    public boolean offlineProductionEnabled() { return offlineProductionEnabled; }
+    public long offlineSettleIntervalTicks() { return offlineSettleIntervalTicks; }
+    public int offlineMaxActionsPerTick() { return offlineMaxActionsPerTick; }
+    public long offlineMaxMillisPerTick() { return offlineMaxMillisPerTick; }
     public List<SpreadSettings> spreads() { return spreads; }
 }

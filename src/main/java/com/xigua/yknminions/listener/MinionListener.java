@@ -24,8 +24,11 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
+import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.event.world.WorldUnloadEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
@@ -142,5 +145,23 @@ public final class MinionListener implements Listener {
     @EventHandler
     public void onWorldLoad(WorldLoadEvent event) {
         manager.onWorldLoad(event.getWorld());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onChunkUnload(ChunkUnloadEvent event) {
+        manager.onChunkUnload(event.getChunk());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onWorldUnload(WorldUnloadEvent event) {
+        manager.onWorldUnload(event.getWorld());
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        plugin.getServer().getScheduler().runTask(plugin, () -> {
+            if (player.isOnline()) manager.onPlayerJoin(player);
+        });
     }
 }

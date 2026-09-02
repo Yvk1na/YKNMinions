@@ -9,6 +9,8 @@ public record MinionType(String id, String displayName, ItemSpec drop, RandomRan
                          String workSound, ModelSettings model, MobSettings mobSettings,
                          SlimeSettings slimeSettings, MiningSettings miningSettings,
                          FarmingSettings farmingSettings,
+                         SkillSettings skillSettings,
+                         CollectionSettings collectionSettings,
                          Map<Integer, LevelSettings> levels) {
     public MinionType {
         levels = Map.copyOf(levels);

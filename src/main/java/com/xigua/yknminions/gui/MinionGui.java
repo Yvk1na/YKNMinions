@@ -6,6 +6,7 @@ import com.xigua.yknminions.config.Requirement;
 import com.xigua.yknminions.item.ItemResolver;
 import com.xigua.yknminions.item.SpecialItemService;
 import com.xigua.yknminions.model.MinionInstance;
+import com.xigua.yknminions.model.MinionLifecycleState;
 import com.xigua.yknminions.service.MinionManager;
 import com.xigua.yknminions.util.InventoryUtil;
 import net.kyori.adventure.text.Component;
@@ -58,7 +59,8 @@ public final class MinionGui implements Listener {
 
     public void startRefreshTask() {
         stopRefreshTask();
-        refreshTask = Bukkit.getScheduler().runTaskTimer(plugin, this::refreshOpenMainInventories, 1L, 1L);
+        refreshTask = Bukkit.getScheduler().runTaskTimer(plugin, this::refreshOpenMainInventories,
+                1L, 1L);
     }
 
     public void stopRefreshTask() {
@@ -76,6 +78,7 @@ public final class MinionGui implements Listener {
                 continue;
             }
             renderStorage(inventory, minion);
+            renderStatus(inventory, minion);
         }
     }
 
@@ -88,9 +91,7 @@ public final class MinionGui implements Listener {
         for (int i = 0; i < inventory.getSize(); i++) inventory.setItem(i, filler);
         renderStorage(inventory, minion);
 
-        ItemStack head = named(Material.PLAYER_HEAD, Component.text("小人等级 " + minion.level(), NamedTextColor.GREEN));
-        head.setAmount(Math.max(1, minion.level()));
-        inventory.setItem(LEVEL_SLOT, head);
+        renderStatus(inventory, minion);
         inventory.setItem(UPGRADE_SLOT, upgradeButton(minion));
         inventory.setItem(COLLECT_SLOT, lore(Material.CHEST, "收取资源", NamedTextColor.GOLD,
                 List.of("左键点击，将全部收获放入背包。")));
@@ -121,6 +122,32 @@ public final class MinionGui implements Listener {
                 inventory.setItem(inventorySlot, desired);
             }
         }
+    }
+
+    private void renderStatus(Inventory inventory, MinionInstance minion) {
+        String status;
+        if (minion.lifecycleState() == MinionLifecycleState.CATCHING_UP) {
+            status = "正在结算离线产出……";
+        } else if (minion.storageFull()) {
+            status = "仓库已满，生产暂停";
+        } else if (minion.lifecycleState() == MinionLifecycleState.ACTIVE) {
+            status = "工作中";
+        } else {
+            status = "世界未加载，正在离线计产";
+        }
+        ItemStack head = minion.type()
+                .map(type -> specialItems.createMinionItem(
+                        type.id(), minion.level(), type.displayName()))
+                .orElseGet(() -> lore(Material.PLAYER_HEAD,
+                        "小人等级 " + minion.level(), NamedTextColor.GREEN, List.of()));
+        var headMeta = head.getItemMeta();
+        List<Component> headLore = new ArrayList<>(
+                Optional.ofNullable(headMeta.lore()).orElseGet(List::of));
+        headLore.add(Component.text(status, NamedTextColor.GRAY));
+        headMeta.lore(headLore);
+        head.setItemMeta(headMeta);
+        head.setAmount(Math.max(1, minion.level()));
+        if (!Objects.equals(inventory.getItem(LEVEL_SLOT), head)) inventory.setItem(LEVEL_SLOT, head);
     }
 
     public void openConfirmation(Player player, MinionInstance minion, int targetLevel) {
@@ -155,6 +182,11 @@ public final class MinionGui implements Listener {
         if (!(event.getWhoClicked() instanceof Player player)) return;
         MinionInstance minion = manager.byId(holder.minionId).orElse(null);
         if (minion == null) { player.closeInventory(); return; }
+        if (minion.catchingUp()) {
+            event.setCancelled(true);
+            player.sendMessage(config.message("catching-up"));
+            return;
+        }
         int topSize = event.getView().getTopInventory().getSize();
         if (event.getRawSlot() >= topSize) {
             if (event.getAction() == InventoryAction.COLLECT_TO_CURSOR) {
@@ -193,6 +225,11 @@ public final class MinionGui implements Listener {
         if (!(event.getWhoClicked() instanceof Player player) || event.getRawSlot() >= event.getView().getTopInventory().getSize()) return;
         MinionInstance minion = manager.byId(holder.minionId).orElse(null);
         if (minion == null) { player.closeInventory(); return; }
+        if (minion.catchingUp()) {
+            player.sendMessage(config.message("catching-up"));
+            openMain(player, minion);
+            return;
+        }
         if (event.getRawSlot() == 11) {
             manager.upgrade(player, minion, holder.targetLevel);
             openMain(player, minion);

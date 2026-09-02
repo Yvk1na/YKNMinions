@@ -1,6 +1,8 @@
 package com.xigua.yknminions.item;
 
 import com.xigua.Main;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -9,7 +11,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
 
-public final class ItemResolver {
+public final class ItemResolver implements MinionItemAccess {
     private final Main plugin;
     private final SpecialItemService specialItems;
 
@@ -40,7 +42,7 @@ public final class ItemResolver {
         if (item != null) return item;
         ItemStack fallback = new ItemStack(Material.BARRIER, Math.max(1, Math.min(64, amount)));
         var meta = fallback.getItemMeta();
-        meta.setDisplayName("§c无法解析: " + spec.descriptor());
+        meta.displayName(Component.text("无法解析: " + spec.descriptor(), NamedTextColor.RED));
         fallback.setItemMeta(meta);
         return fallback;
     }

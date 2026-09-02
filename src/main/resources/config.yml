@@ -9,6 +9,15 @@ storage-slots-per-level: 1
 tick-period: 2
 save-interval-seconds: 60
 
+# 世界或区块卸载后不强制加载地图，而是根据动作时间补算产出。
+# 不设置离线天数上限；仓库满后会停止生产。
+offline-production:
+  enabled: true
+  settle-interval-seconds: 60
+  # 补算采用全局轮询预算，避免大量岛屿同时恢复时阻塞主线程。
+  max-actions-per-tick: 2000
+  max-millis-per-tick: 4
+
 diamond-spread:
   chance: 0.10
   amount: "1~5"
@@ -46,7 +55,14 @@ messages:
   player-only: "§c该命令只能由玩家执行。"
   invalid-item: "§c这个物品不能放入该栏位。"
   storage-full: "§c小人的仓库已满。"
+  catching-up: "§e该小人正在结算离线产出，请稍候。"
   collected: "§a已收取小人仓库中的资源。"
+  collecting: "§e正在将小人仓库资源发放到背包或 Skyblock-Core 暂存中……"
+  collection-pending: "§e该小人的上一笔领取仍在处理中，正在安全重试。"
+  delivery-rejected: "§c背包和 Skyblock-Core 暂存均无法容纳这些物品，资源已解除锁定并保留在小人中。"
+  delivery-failed: "§c本次领取暂未完成，资源仍安全保留并锁定在小人中，请稍后重试。"
+  delivery-prepare-failed: "§c无法持久化领取记录，未发放任何物品，请检查服务器日志。"
+  pickup-after-collection: "§e请等待仓库领取完成，再次点击收起小人。"
   upgraded: "§a小人已升级到等级 %level%。"
   not-enough-materials: "§c升级材料不足。"
   invalid-level: "§c请输入当前等级以上、最高 11 的有效等级。"

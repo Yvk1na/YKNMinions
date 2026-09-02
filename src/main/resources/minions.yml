@@ -3,12 +3,32 @@
 #   mmoitems:MATERIAL:ENCHANTED_SLIME
 #   itemsadder:namespace:item_id
 #   craftengine:namespace:item_id
+# 默认的 39 种小人已按 Hypixel SkyBlock 主产物配置 AuraSkills 经验。
+# EcoCollections 仅绑定本服 2026.31 配置中真实存在的 collection ID；未配置时不会增加图鉴：
+#   skill:
+#     provider: auraskills
+#     id: mining
+#     rewards:
+#       - { item: "minecraft:coal", xp-per-base-unit: 0.3, equivalent: 1 }
+#       - { item: "minecraft:coal_block", xp-per-base-unit: 0.3, equivalent: 9 }
+#   collection:
+#     provider: ecocollections
+#     id: coal
 types:
   slime:
     display-name: "§aSlime Minion"
     drop: "minecraft:slime_ball"
     drop-amount: "1~2"
     work-sound: "ENTITY_SLIME_SQUISH"
+    skill:
+      provider: auraskills
+      id: fighting
+      rewards:
+        - { item: "minecraft:slime_ball", xp-per-base-unit: 0.2, equivalent: 1 }
+        - { item: "minecraft:slime_block", xp-per-base-unit: 0.2, equivalent: 9 }
+    collection:
+      provider: ecocollections
+      id: slime
     slime-settings:
       # 数值是权重；不必正好等于 100。键为 Minecraft 史莱姆大小（1=小、2=中、4=大）。
       size-chances:
@@ -76,6 +96,14 @@ types:
     drop: "minecraft:rotten_flesh"
     drop-amount: "1~2"
     work-sound: "ENTITY_ZOMBIE_HURT"
+    skill:
+      provider: auraskills
+      id: fighting
+      rewards:
+        - { item: "minecraft:rotten_flesh", xp-per-base-unit: 0.3, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: zombie
     mob-settings:
       entity: "ZOMBIE"
       # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
@@ -105,6 +133,14 @@ types:
     drop: "minecraft:string"
     drop-amount: "1~2"
     work-sound: "ENTITY_SPIDER_HURT"
+    skill:
+      provider: auraskills
+      id: fighting
+      rewards:
+        - { item: "minecraft:string", xp-per-base-unit: 0.2, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: spider
     mob-settings:
       entity: "SPIDER"
       # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
@@ -134,6 +170,15 @@ types:
     drop: "minecraft:bone"
     drop-amount: "1~2"
     work-sound: "ENTITY_SKELETON_HURT"
+    skill:
+      provider: auraskills
+      id: fighting
+      rewards:
+        - { item: "minecraft:bone", xp-per-base-unit: 0.2, equivalent: 1 }
+        - { item: "minecraft:bone_block", xp-per-base-unit: 0.2, equivalent: 9 }
+    collection:
+      provider: ecocollections
+      id: skeleton
     mob-settings:
       entity: "SKELETON"
       # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
@@ -163,6 +208,14 @@ types:
     drop: "minecraft:blaze_rod"
     drop-amount: "1~2"
     work-sound: "ENTITY_BLAZE_HURT"
+    skill:
+      provider: auraskills
+      id: fighting
+      rewards:
+        - { item: "minecraft:blaze_rod", xp-per-base-unit: 0.3, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: blaze
     mob-settings:
       entity: "BLAZE"
       # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
@@ -192,6 +245,14 @@ types:
     drop: "minecraft:spider_eye"
     drop-amount: "1~2"
     work-sound: "ENTITY_SPIDER_HURT"
+    skill:
+      provider: auraskills
+      id: fighting
+      rewards:
+        - { item: "minecraft:spider_eye", xp-per-base-unit: 0.3, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: spider
     mob-settings:
       entity: "CAVE_SPIDER"
       # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
@@ -221,6 +282,11 @@ types:
     drop: "minecraft:chicken"
     drop-amount: "1~2"
     work-sound: "ENTITY_CHICKEN_HURT"
+    skill:
+      provider: auraskills
+      id: farming
+      rewards:
+        - { item: "minecraft:chicken", xp-per-base-unit: 0.1, equivalent: 1 }
     mob-settings:
       entity: "CHICKEN"
       # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
@@ -250,6 +316,11 @@ types:
     drop: "minecraft:beef"
     drop-amount: "1~2"
     work-sound: "ENTITY_COW_HURT"
+    skill:
+      provider: auraskills
+      id: farming
+      rewards:
+        - { item: "minecraft:beef", xp-per-base-unit: 0.1, equivalent: 1 }
     mob-settings:
       entity: "COW"
       # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
@@ -279,6 +350,14 @@ types:
     drop: "minecraft:gunpowder"
     drop-amount: "1~2"
     work-sound: "ENTITY_CREEPER_HURT"
+    skill:
+      provider: auraskills
+      id: fighting
+      rewards:
+        - { item: "minecraft:gunpowder", xp-per-base-unit: 0.3, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: creeper
     mob-settings:
       entity: "CREEPER"
       # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
@@ -308,6 +387,11 @@ types:
     drop: "minecraft:porkchop"
     drop-amount: "1~2"
     work-sound: "ENTITY_PIG_HURT"
+    skill:
+      provider: auraskills
+      id: farming
+      rewards:
+        - { item: "minecraft:porkchop", xp-per-base-unit: 0.2, equivalent: 1 }
     mob-settings:
       entity: "PIG"
       # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
@@ -337,6 +421,11 @@ types:
     drop: "minecraft:rabbit"
     drop-amount: "1~2"
     work-sound: "ENTITY_RABBIT_HURT"
+    skill:
+      provider: auraskills
+      id: farming
+      rewards:
+        - { item: "minecraft:rabbit", xp-per-base-unit: 0.1, equivalent: 1 }
     mob-settings:
       entity: "RABBIT"
       # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
@@ -366,6 +455,11 @@ types:
     drop: "minecraft:white_wool"
     drop-amount: "1~2"
     work-sound: "ENTITY_SHEEP_HURT"
+    skill:
+      provider: auraskills
+      id: farming
+      rewards:
+        - { item: "minecraft:white_wool", xp-per-base-unit: 0.1, equivalent: 1 }
     mob-settings:
       entity: "SHEEP"
       # 每击杀一个目标获得的资源数量；支持固定数字或随机范围。
@@ -396,6 +490,15 @@ types:
     drop: "minecraft:magma_cream"
     drop-amount: "1~2"
     work-sound: "ENTITY_MAGMA_CUBE_HURT"
+    skill:
+      provider: auraskills
+      id: fighting
+      rewards:
+        - { item: "minecraft:magma_cream", xp-per-base-unit: 0.2, equivalent: 1 }
+        - { item: "minecraft:magma_block", xp-per-base-unit: 0.2, equivalent: 4 }
+    collection:
+      provider: ecocollections
+      id: magma_cube
     mob-settings:
       entity: "MAGMA_CUBE"
       drop-per-kill: "1~5"
@@ -430,6 +533,14 @@ types:
     drop: "minecraft:ender_pearl"
     drop-amount: "1~2"
     work-sound: "ENTITY_ENDERMAN_HURT"
+    skill:
+      provider: auraskills
+      id: fighting
+      rewards:
+        - { item: "minecraft:ender_pearl", xp-per-base-unit: 0.3, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: enderman
     mob-settings:
       entity: "ENDERMAN"
       drop-per-kill: "1~5"
@@ -458,6 +569,15 @@ types:
     drop: "minecraft:coal"
     drop-amount: "1~2"
     work-sound: "BLOCK_STONE_BREAK"
+    skill:
+      provider: auraskills
+      id: mining
+      rewards:
+        - { item: "minecraft:coal", xp-per-base-unit: 0.3, equivalent: 1 }
+        - { item: "minecraft:coal_block", xp-per-base-unit: 0.3, equivalent: 9 }
+    collection:
+      provider: ecocollections
+      id: coal
     mining-settings:
       # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
       block: "minecraft:coal_ore"
@@ -485,6 +605,14 @@ types:
     drop: "minecraft:cobblestone"
     drop-amount: "1~2"
     work-sound: "BLOCK_STONE_BREAK"
+    skill:
+      provider: auraskills
+      id: mining
+      rewards:
+        - { item: "minecraft:cobblestone", xp-per-base-unit: 0.1, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: cobblestone
     mining-settings:
       # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
       block: "minecraft:cobblestone"
@@ -512,6 +640,15 @@ types:
     drop: "minecraft:diamond"
     drop-amount: "1~2"
     work-sound: "BLOCK_STONE_BREAK"
+    skill:
+      provider: auraskills
+      id: mining
+      rewards:
+        - { item: "minecraft:diamond", xp-per-base-unit: 0.4, equivalent: 1 }
+        - { item: "minecraft:diamond_block", xp-per-base-unit: 0.4, equivalent: 9 }
+    collection:
+      provider: ecocollections
+      id: diamond
     mining-settings:
       # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
       block: "minecraft:diamond_ore"
@@ -539,6 +676,15 @@ types:
     drop: "minecraft:emerald"
     drop-amount: "1~2"
     work-sound: "BLOCK_STONE_BREAK"
+    skill:
+      provider: auraskills
+      id: mining
+      rewards:
+        - { item: "minecraft:emerald", xp-per-base-unit: 0.4, equivalent: 1 }
+        - { item: "minecraft:emerald_block", xp-per-base-unit: 0.4, equivalent: 9 }
+    collection:
+      provider: ecocollections
+      id: emerald
     mining-settings:
       # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
       block: "minecraft:emerald_ore"
@@ -566,6 +712,14 @@ types:
     drop: "minecraft:end_stone"
     drop-amount: "1~2"
     work-sound: "BLOCK_STONE_BREAK"
+    skill:
+      provider: auraskills
+      id: mining
+      rewards:
+        - { item: "minecraft:end_stone", xp-per-base-unit: 0.4, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: end_stone
     mining-settings:
       # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
       block: "minecraft:end_stone"
@@ -593,6 +747,15 @@ types:
     drop: "minecraft:gold_ingot"
     drop-amount: "1~2"
     work-sound: "BLOCK_STONE_BREAK"
+    skill:
+      provider: auraskills
+      id: mining
+      rewards:
+        - { item: "minecraft:gold_ingot", xp-per-base-unit: 0.4, equivalent: 1 }
+        - { item: "minecraft:gold_block", xp-per-base-unit: 0.4, equivalent: 9 }
+    collection:
+      provider: ecocollections
+      id: gold
     mining-settings:
       # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
       block: "minecraft:gold_ore"
@@ -620,6 +783,15 @@ types:
     drop: "minecraft:iron_ingot"
     drop-amount: "1~2"
     work-sound: "BLOCK_STONE_BREAK"
+    skill:
+      provider: auraskills
+      id: mining
+      rewards:
+        - { item: "minecraft:iron_ingot", xp-per-base-unit: 0.3, equivalent: 1 }
+        - { item: "minecraft:iron_block", xp-per-base-unit: 0.3, equivalent: 9 }
+    collection:
+      provider: ecocollections
+      id: iron
     mining-settings:
       # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
       block: "minecraft:iron_ore"
@@ -647,6 +819,14 @@ types:
     drop: "minecraft:oak_log"
     drop-amount: "1~2"
     work-sound: "BLOCK_WOOD_BREAK"
+    skill:
+      provider: auraskills
+      id: foraging
+      rewards:
+        - { item: "minecraft:oak_log", xp-per-base-unit: 0.1, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: oak
     mining-settings:
       # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
       block: "minecraft:oak_log"
@@ -674,6 +854,14 @@ types:
     drop: "minecraft:obsidian"
     drop-amount: "1~2"
     work-sound: "BLOCK_STONE_BREAK"
+    skill:
+      provider: auraskills
+      id: mining
+      rewards:
+        - { item: "minecraft:obsidian", xp-per-base-unit: 0.4, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: obsidian
     mining-settings:
       # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
       block: "minecraft:obsidian"
@@ -701,6 +889,15 @@ types:
     drop: "minecraft:quartz"
     drop-amount: "1~2"
     work-sound: "BLOCK_NETHER_ORE_BREAK"
+    skill:
+      provider: auraskills
+      id: mining
+      rewards:
+        - { item: "minecraft:quartz", xp-per-base-unit: 0.3, equivalent: 1 }
+        - { item: "minecraft:quartz_block", xp-per-base-unit: 0.3, equivalent: 4 }
+    collection:
+      provider: ecocollections
+      id: quartz
     mining-settings:
       # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
       block: "minecraft:nether_quartz_ore"
@@ -728,6 +925,15 @@ types:
     drop: "minecraft:redstone"
     drop-amount: "1~2"
     work-sound: "BLOCK_STONE_BREAK"
+    skill:
+      provider: auraskills
+      id: mining
+      rewards:
+        - { item: "minecraft:redstone", xp-per-base-unit: 0.2, equivalent: 1 }
+        - { item: "minecraft:redstone_block", xp-per-base-unit: 0.2, equivalent: 9 }
+    collection:
+      provider: ecocollections
+      id: redstone
     mining-settings:
       # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
       block: "minecraft:redstone_ore"
@@ -755,6 +961,11 @@ types:
     drop: "minecraft:sand"
     drop-amount: "1~2"
     work-sound: "BLOCK_SAND_BREAK"
+    skill:
+      provider: auraskills
+      id: mining
+      rewards:
+        - { item: "minecraft:sand", xp-per-base-unit: 0.2, equivalent: 1 }
     mining-settings:
       # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
       block: "minecraft:sand"
@@ -782,6 +993,12 @@ types:
     drop: "minecraft:snowball"
     drop-amount: "1~2"
     work-sound: "BLOCK_SNOW_BREAK"
+    skill:
+      provider: auraskills
+      id: mining
+      rewards:
+        - { item: "minecraft:snowball", xp-per-base-unit: 0.1, equivalent: 1 }
+        - { item: "minecraft:snow_block", xp-per-base-unit: 0.1, equivalent: 4 }
     mining-settings:
       # 在小人脚边的 5×5 工作区内放置并挖掘；中心格保留给小人，共 24 个工作格。
       block: "minecraft:snow_block"
@@ -810,6 +1027,12 @@ types:
     drop: "minecraft:clay_ball"
     drop-amount: "1~2"
     work-sound: "BLOCK_GRAVEL_BREAK"
+    skill:
+      provider: auraskills
+      id: fishing
+      rewards:
+        - { item: "minecraft:clay_ball", xp-per-base-unit: 0.1, equivalent: 1 }
+        - { item: "minecraft:clay", xp-per-base-unit: 0.1, equivalent: 4 }
     mining-settings:
       # 5×5 工作区，中心格留给小人。
       block: "minecraft:clay"
@@ -837,6 +1060,15 @@ types:
     drop: "minecraft:lapis_lazuli"
     drop-amount: "1~2"
     work-sound: "BLOCK_STONE_BREAK"
+    skill:
+      provider: auraskills
+      id: mining
+      rewards:
+        - { item: "minecraft:lapis_lazuli", xp-per-base-unit: 0.1, equivalent: 1 }
+        - { item: "minecraft:lapis_block", xp-per-base-unit: 0.1, equivalent: 9 }
+    collection:
+      provider: ecocollections
+      id: lapis
     mining-settings:
       # 5×5 工作区，中心格留给小人。
       block: "minecraft:lapis_ore"
@@ -864,6 +1096,14 @@ types:
     drop: "minecraft:cactus"
     drop-amount: "1~2"
     work-sound: "BLOCK_WOOD_BREAK"
+    skill:
+      provider: auraskills
+      id: farming
+      rewards:
+        - { item: "minecraft:cactus", xp-per-base-unit: 0.2, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: cactus
     farming-settings:
       # 底层与种植排列由作物类型自动按原版规则准备。
       crop: "CACTUS"
@@ -891,6 +1131,14 @@ types:
     drop: "minecraft:carrot"
     drop-amount: "1~2"
     work-sound: "BLOCK_GRASS_BREAK"
+    skill:
+      provider: auraskills
+      id: farming
+      rewards:
+        - { item: "minecraft:carrot", xp-per-base-unit: 0.1, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: carrot
     farming-settings:
       # 底层与种植排列由作物类型自动按原版规则准备。
       crop: "CARROT"
@@ -918,6 +1166,15 @@ types:
     drop: "minecraft:red_mushroom"
     drop-amount: "1~2"
     work-sound: "BLOCK_GRASS_BREAK"
+    skill:
+      provider: auraskills
+      id: farming
+      rewards:
+        - { item: "minecraft:red_mushroom", xp-per-base-unit: 0.3, equivalent: 1 }
+        - { item: "minecraft:red_mushroom_block", xp-per-base-unit: 0.3, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: mushroom
     farming-settings:
       # 底层与种植排列由作物类型自动按原版规则准备。
       crop: "RED_MUSHROOM"
@@ -945,6 +1202,15 @@ types:
     drop: "minecraft:brown_mushroom"
     drop-amount: "1~2"
     work-sound: "BLOCK_GRASS_BREAK"
+    skill:
+      provider: auraskills
+      id: farming
+      rewards:
+        - { item: "minecraft:brown_mushroom", xp-per-base-unit: 0.3, equivalent: 1 }
+        - { item: "minecraft:brown_mushroom_block", xp-per-base-unit: 0.3, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: mushroom
     farming-settings:
       # 底层与种植排列由作物类型自动按原版规则准备。
       crop: "BROWN_MUSHROOM"
@@ -972,6 +1238,14 @@ types:
     drop: "minecraft:nether_wart"
     drop-amount: "1~2"
     work-sound: "BLOCK_GRASS_BREAK"
+    skill:
+      provider: auraskills
+      id: farming
+      rewards:
+        - { item: "minecraft:nether_wart", xp-per-base-unit: 0.2, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: nether_wart
     farming-settings:
       # 底层与种植排列由作物类型自动按原版规则准备。
       crop: "NETHER_WART"
@@ -999,6 +1273,14 @@ types:
     drop: "minecraft:potato"
     drop-amount: "1~2"
     work-sound: "BLOCK_GRASS_BREAK"
+    skill:
+      provider: auraskills
+      id: farming
+      rewards:
+        - { item: "minecraft:potato", xp-per-base-unit: 0.1, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: potato
     farming-settings:
       # 底层与种植排列由作物类型自动按原版规则准备。
       crop: "POTATO"
@@ -1026,6 +1308,14 @@ types:
     drop: "minecraft:sugar_cane"
     drop-amount: "1~2"
     work-sound: "BLOCK_GRASS_BREAK"
+    skill:
+      provider: auraskills
+      id: farming
+      rewards:
+        - { item: "minecraft:sugar_cane", xp-per-base-unit: 0.1, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: sugar_cane
     farming-settings:
       # 底层与种植排列由作物类型自动按原版规则准备。
       crop: "SUGAR_CANE"
@@ -1053,6 +1343,15 @@ types:
     drop: "minecraft:wheat"
     drop-amount: "1~2"
     work-sound: "BLOCK_GRASS_BREAK"
+    skill:
+      provider: auraskills
+      id: farming
+      rewards:
+        - { item: "minecraft:wheat", xp-per-base-unit: 0.2, equivalent: 1 }
+        - { item: "minecraft:hay_block", xp-per-base-unit: 0.2, equivalent: 9 }
+    collection:
+      provider: ecocollections
+      id: wheat
     farming-settings:
       # 底层与种植排列由作物类型自动按原版规则准备。
       crop: "WHEAT"
@@ -1080,6 +1379,15 @@ types:
     drop: "minecraft:melon_slice"
     drop-amount: "1~2"
     work-sound: "BLOCK_WOOD_BREAK"
+    skill:
+      provider: auraskills
+      id: farming
+      rewards:
+        - { item: "minecraft:melon_slice", xp-per-base-unit: 0.1, equivalent: 1 }
+        - { item: "minecraft:melon", xp-per-base-unit: 0.1, equivalent: 9 }
+    collection:
+      provider: ecocollections
+      id: melon
     farming-settings:
       # 底层与种植排列由作物类型自动按原版规则准备。
       crop: "MELON"
@@ -1107,6 +1415,14 @@ types:
     drop: "minecraft:pumpkin"
     drop-amount: "1~2"
     work-sound: "BLOCK_WOOD_BREAK"
+    skill:
+      provider: auraskills
+      id: farming
+      rewards:
+        - { item: "minecraft:pumpkin", xp-per-base-unit: 0.3, equivalent: 1 }
+    collection:
+      provider: ecocollections
+      id: pumpkin
     farming-settings:
       # 底层与种植排列由作物类型自动按原版规则准备。
       crop: "PUMPKIN"

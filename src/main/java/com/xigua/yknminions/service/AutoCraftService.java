@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 import java.util.logging.Level;
 
-public final class AutoCraftService {
+public final class AutoCraftService implements StorageCompactor {
     private final Main plugin;
     private final ItemResolver resolver;
     private List<ConfiguredRule> configuredRules = List.of();

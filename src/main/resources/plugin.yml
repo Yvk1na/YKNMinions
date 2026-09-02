@@ -1,10 +1,11 @@
 name: YknMinions
 version: '${project.version}'
 main: com.xigua.Main
-api-version: '1.21'
+api-version: '${minecraft.api.version}'
 authors: [xigua]
 description: Hypixel SkyBlock-style configurable minions
-softdepend: [MMOItems, ItemsAdder, CraftEngine]
+depend: [Skyblock-Core]
+softdepend: [MMOItems, ItemsAdder, CraftEngine, AuraSkills, EcoCollections]
 commands:
   minions:
     description: YknMinions main command

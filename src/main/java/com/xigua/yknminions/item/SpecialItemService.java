@@ -17,7 +17,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
-public final class SpecialItemService {
+public final class SpecialItemService implements MinionUpgradeAccess {
     public static final String DIAMOND_SPREAD = "diamond_spread";
     public static final String EMERALD_SPREAD = "emerald_spread";
     public static final String IRON_SPREAD = "iron_spread";
@@ -147,7 +147,19 @@ public final class SpecialItemService {
     }
 
     public ItemStack createMinionItem(String type, int level, String displayName) {
-        ItemStack item = new ItemStack(Material.PLAYER_HEAD);
+        ItemStack item = plugin.pluginConfig().minionType(type)
+                .map(minionType -> minionType.model().helmet())
+                .map(plugin.itemResolver()::create)
+                .orElse(null);
+        if (item == null) {
+            item = plugin.pluginConfig().minionType(type)
+                    .map(minionType -> minionType.drop())
+                    .map(plugin.itemResolver()::create)
+                    .orElse(null);
+        }
+        if (item == null) item = new ItemStack(Material.PLAYER_HEAD);
+        item = item.clone();
+        item.setAmount(1);
         ItemMeta meta = item.getItemMeta();
         meta.itemName(LegacyComponentSerializer.legacySection().deserialize(displayName + " " + roman(level)));
         meta.lore(List.of(
